@@ -1,6 +1,7 @@
 using BasketAPI.Interfaces;
 using BasketAPI.Middleware;
 using BasketAPI.Services;
+using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMemoryCache();
+
+builder.Services.AddHttpLogging(options =>
+{
+    options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders
+        | HttpLoggingFields.RequestBody
+        | HttpLoggingFields.ResponsePropertiesAndHeaders
+        | HttpLoggingFields.ResponseBody;
+});
 
 builder.Services.AddSingleton<IProductService, ProductService>();
 builder.Services.AddSingleton<IBasketService, BasketService>();
@@ -21,6 +30,8 @@ builder.Services.AddHttpClient<IImpactApiClient, ImpactApiClient>(client =>
 });
 
 var app = builder.Build();
+
+app.UseHttpLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
