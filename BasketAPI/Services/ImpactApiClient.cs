@@ -9,7 +9,7 @@ namespace BasketAPI.Services
         private const string _productsCacheKey = "products";
         private readonly HttpClient _httpClient;
         private IMemoryCache _productInCache;
-        internal const string _emailDefault = "rui.novais@outlook.pt";
+        internal const string _emailDefault = "teste@outlook.pt";
         public ImpactApiClient(HttpClient httpClient, IMemoryCache productInCache)
         {
             _httpClient = httpClient;
