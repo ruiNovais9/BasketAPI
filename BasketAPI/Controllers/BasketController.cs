@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BasketAPI.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class BasketController : ControllerBase
     {
         private readonly ILogger<BasketController> _logger;
