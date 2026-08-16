@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="BasketAPI.Tests/BasketAPI.Tests.csproj" />
   <Project Path="BasketAPI/BasketAPI.csproj" />
 </Solution>
