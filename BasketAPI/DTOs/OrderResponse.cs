@@ -7,13 +7,13 @@ namespace BasketAPI.DTOs
     {
         public OrderResponse(CreateOrderResponse order)
         {
-            IsSucess = true;
+            IsSuccess = true;
             Order = order;
         }
 
         public OrderResponse(Basket basket)
         {
-            IsSucess = true;
+            IsSuccess = true;
             Order = new CreateOrderResponse
             {
                 UserEmail = basket.User,
@@ -31,7 +31,7 @@ namespace BasketAPI.DTOs
 
         public OrderResponse(string errorMessage) : base (errorMessage)
         {
-            IsSucess = false;
+            IsSuccess = false;
             Order = null;
         }
         public CreateOrderResponse Order { get; set; } = new CreateOrderResponse();

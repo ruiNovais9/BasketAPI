@@ -6,14 +6,14 @@ namespace BasketAPI.DTOs
     {
         public GenericResponse()
         {
-            IsSucess = true;
+            IsSuccess = true;
         }
         public GenericResponse(string errorMessage)
         {
             ErrorMessage = errorMessage;
-            IsSucess = false;
+            IsSuccess = false;
         }
         public string ErrorMessage { get; set; }
-        public bool IsSucess { get; set; }
+        public bool IsSuccess { get; set; }
     }
 }

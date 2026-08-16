@@ -98,7 +98,10 @@ namespace BasketAPI.Services
                 return products;
             }
 
-            return await GetProducts();
+            await GetProducts();
+
+            _productInCache.TryGetValue(_productsCacheKey, out products);
+            return products ?? new List<ProductResponse>();
         }
     }
 }
