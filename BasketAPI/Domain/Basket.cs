@@ -17,5 +17,6 @@
         public string User { get; set; }
         public decimal TotalPrice { get; set; }
         public bool AlreadyOrder { get; set; }
+        public string OrderId { get; set; }
     }
 }
