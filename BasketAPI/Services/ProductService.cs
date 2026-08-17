@@ -17,11 +17,6 @@ namespace BasketAPI.Services
             return await _impactApiClient.GetToken(ImpactApiClient._emailDefault);
         }
 
-        public async Task<List<ProductResponse>> GetProducts()
-        {
-            return await _impactApiClient.GetProducts();
-        }
-
         public async Task<CreateOrderResponse> GetOrder(string orderId)
         {
             return await _impactApiClient.GetOrder(orderId);
@@ -60,7 +55,7 @@ namespace BasketAPI.Services
 
             return products.OrderBy(x => x.Price)
                            .ThenBy(x => x.Id)
-                           .Skip(page)
+                           .Skip(page * takeProductsNumber)
                            .Take(takeProductsNumber)
                            .ToList();
         }

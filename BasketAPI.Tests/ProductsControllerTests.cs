@@ -48,16 +48,5 @@ namespace BasketAPI.Tests
 
             CollectionAssert.AreEqual(products, (List<ProductResponse>)result.Value);
         }
-
-        [TestMethod]
-        public async Task GetProducts_ReturnsServiceResult()
-        {
-            var products = new List<ProductResponse> { new() { Id = 4 } };
-            _productServiceMock.Setup(s => s.GetProducts()).ReturnsAsync(products);
-
-            var result = await _productsController.GetProducts();
-
-            CollectionAssert.AreEqual(products, result);
-        }
     }
 }

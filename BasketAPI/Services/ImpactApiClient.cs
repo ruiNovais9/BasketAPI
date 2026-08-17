@@ -72,9 +72,7 @@ namespace BasketAPI.Services
                 _productInCache.Set(_productsCacheKey, products, TimeSpan.FromMinutes(30));
             }
 
-            return products.OrderByDescending(x => x.Stars)
-                           .Take(100)
-                           .ToList();
+            return products;
         }
 
         public async Task<CreateOrderResponse> CreateOrder(CreateOrderRequest createOrderRequest)

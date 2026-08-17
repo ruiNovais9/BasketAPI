@@ -35,11 +35,5 @@ namespace BasketAPI.Controllers
         {
             return await _productService.GetProductsByPage(page, numberOfProduct);
         }
-
-        [HttpGet("GetProducts")]
-        public async Task<List<ProductResponse>> GetProducts()
-        {
-            return await _productService.GetProducts();
-        }
     }
 }

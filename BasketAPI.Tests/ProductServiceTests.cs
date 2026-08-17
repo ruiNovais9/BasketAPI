@@ -27,17 +27,6 @@ namespace BasketAPI.Tests
         }
 
         [TestMethod]
-        public async Task GetProducts_DelegatesToClient()
-        {
-            var products = new List<ProductResponse> { new() { Id = 1 } };
-            _impactApiClientMock.Setup(c => c.GetProducts()).ReturnsAsync(products);
-
-            var result = await _productService.GetProducts();
-
-            Assert.AreEqual(1, result.Count);
-        }
-
-        [TestMethod]
         public async Task GetOrder_DelegatesToClient()
         {
             var order = new CreateOrderResponse { OrderId = "abc" };
@@ -118,6 +107,28 @@ namespace BasketAPI.Tests
             var result = await _productService.GetProductsByPage(0, 5000);
 
             Assert.AreEqual(1000, result.Count);
+        }
+
+        [TestMethod]
+        public async Task GetProductsByPage_ClampsTakeTo10ByRequest()
+        {
+            var products = Enumerable.Range(1, 10).Select(i => new ProductResponse { Id = i, Price = i }).ToList();
+            _impactApiClientMock.Setup(c => c.GetCachedProducts()).ReturnsAsync(products);
+
+            var result = await _productService.GetProductsByPage(0, 5);
+
+            Assert.AreEqual(5, result.Count);
+            Assert.IsFalse(result.Any(x => x.Id > 5));
+            Assert.IsTrue(result.Count(x => x.Id <= 5) == 5);
+
+            var resultSecondPage = await _productService.GetProductsByPage(1, 5);
+
+            Assert.AreEqual(5, resultSecondPage.Count);
+            Assert.IsFalse(resultSecondPage.Any(x => x.Id > 10));
+            Assert.IsTrue(resultSecondPage.Count(x => x.Id > 5) == 5 && resultSecondPage.Count(x => x.Id <= 5) == 0);
+
+            var resultThirdPage = await _productService.GetProductsByPage(2, 5);
+            Assert.AreEqual(0, resultThirdPage.Count);
         }
 
         [TestMethod]

@@ -104,22 +104,6 @@ namespace BasketAPI.Tests
         }
 
         [TestMethod]
-        public async Task GetProducts_CachesAllProducts_ButReturnsTop100ByStars()
-        {
-            var items = Enumerable.Range(1, 150)
-                .Select(i => $"{{\"id\":{i},\"name\":\"P\",\"price\":1,\"size\":1,\"stars\":{i % 5}}}");
-            var json = "[" + string.Join(",", items) + "]";
-
-            var (client, _, cache) = CreateSut(req => RouteLoginOrDefault(req, json));
-
-            var result = await client.GetProducts();
-
-            Assert.AreEqual(100, result.Count);
-            Assert.IsTrue(cache.TryGetValue("products", out List<ProductResponse>? cached));
-            Assert.AreEqual(150, cached!.Count);
-        }
-
-        [TestMethod]
         public async Task GetProducts_Throws_WhenApiReturnsError()
         {
             var (client, _, _) = CreateSut(req =>

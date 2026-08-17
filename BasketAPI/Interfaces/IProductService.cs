@@ -5,7 +5,6 @@ namespace BasketAPI.Interfaces
     public interface IProductService
     {
         Task<string> GetToken();
-        Task<List<ProductResponse>> GetProducts();
         Task<CreateOrderResponse> GetOrder(string orderId);
         Task<ProductResponse> GetProductById(int productId);
         Task<List<ProductResponse>> GetProductByIds(List<int> productId);
